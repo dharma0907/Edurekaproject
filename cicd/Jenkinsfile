@@ -19,7 +19,13 @@ stage('docker build image') {
         stage('docker tag the build') {
             steps {
                
-                sh "docker tag website-v${env.BUILD_NUMBER} PHP:v${env.BUILD_NUMBER}"    
+                sh "docker tag website-v${env.BUILD_NUMBER} phpwebsite:v${env.BUILD_NUMBER}"    
+            }
+        }
+        stage('docker run the image') {
+            steps {
+               
+                sh "docker run -itd -p 8082:80 phpwebsite:v${env.BUILD_NUMBER}"    
             }
         }
 }
